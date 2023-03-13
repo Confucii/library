@@ -1,3 +1,5 @@
+const bookCardHolder = document.querySelector(".card-holder");
+
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -5,6 +7,24 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
+}
+
+function addBookToLibrary(book) {
+  myLibrary.push(book);
+}
+
+function displayBooks() {
+  myLibrary.forEach((book) => {
+    const bookCard = document.createElement("div");
+    bookCard.classList.add("card-book");
+    Object.values(book).forEach((bookAttribute) => {
+      const bookProperty = document.createElement("p");
+      const propertyContent = document.createTextNode(bookAttribute);
+      bookProperty.appendChild(propertyContent);
+      bookCard.appendChild(bookProperty);
+    });
+    bookCardHolder.appendChild(bookCard);
+  });
 }
 
 const hobbit = new Book("Hobbit", "J.R.R. Tolkien", 295, "not read yet");
@@ -39,13 +59,11 @@ const theGreatGatsby = new Book(
   "not read yet"
 );
 
-function addBookToLibrary(book) {
-  myLibrary.push(book);
-}
-
 addBookToLibrary(hobbit);
 addBookToLibrary(catcherInTheRye);
 addBookToLibrary(toKillAMockingbird);
 addBookToLibrary(nineteenEightyFour);
 addBookToLibrary(prideAndPrejudice);
 addBookToLibrary(theGreatGatsby);
+
+displayBooks();
