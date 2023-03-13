@@ -1,12 +1,10 @@
-const bookCardHolder = document.querySelector(".card-holder");
-
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
+function Book(title, author, volume, status) {
   this.title = title;
   this.author = author;
-  this.pages = pages;
-  this.read = read;
+  this.volume = volume;
+  this.status = status;
 }
 
 function addBookToLibrary(book) {
@@ -14,14 +12,19 @@ function addBookToLibrary(book) {
 }
 
 function displayBooks() {
+  const bookCardHolder = document.querySelector(".card-holder");
   myLibrary.forEach((book) => {
     const bookCard = document.createElement("div");
     bookCard.classList.add("card-book");
-    Object.values(book).forEach((bookAttribute) => {
-      const bookProperty = document.createElement("p");
-      const propertyContent = document.createTextNode(bookAttribute);
-      bookProperty.appendChild(propertyContent);
-      bookCard.appendChild(bookProperty);
+    Object.entries(book).forEach(([bookProperty, bookAttribute]) => {
+      const bookPropertyCapitilized =
+        bookProperty.charAt(0).toUpperCase() + bookProperty.slice(1);
+      const bookPropertyText = document.createElement("p");
+      const propertyContent = document.createTextNode(
+        `${bookPropertyCapitilized}: ${bookAttribute}`
+      );
+      bookPropertyText.appendChild(propertyContent);
+      bookCard.appendChild(bookPropertyText);
     });
     bookCardHolder.appendChild(bookCard);
   });
