@@ -30,6 +30,11 @@ body {
   padding: 5px 10px;
 }
 
+.form {
+  display: flex;
+  justify-content: space-between;
+}
+
 .new-book {
   align-self: center;
   padding: 5px 10px;
