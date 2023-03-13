@@ -30,35 +30,40 @@ function displayBooks() {
   });
 }
 
-const hobbit = new Book("Hobbit", "J.R.R. Tolkien", 295, "not read yet");
+const hobbit = new Book(
+  "Hobbit",
+  "J.R.R. Tolkien",
+  "295 pages",
+  "not read yet"
+);
 const catcherInTheRye = new Book(
   "The Catcher in the Rye",
   "J.D. Salinger",
-  277,
+  "277 pages",
   "not read yet"
 );
 const toKillAMockingbird = new Book(
   "To Kill a Mockingbird",
   "Harper Lee",
-  281,
+  "281 pages",
   "not read yet"
 );
 const nineteenEightyFour = new Book(
   "1984",
   "George Orwell",
-  328,
+  "328 pages",
   "not read yet"
 );
 const prideAndPrejudice = new Book(
   "Pride and Prejudice",
   "Jane Austen",
-  279,
+  "279 pages",
   "not read yet"
 );
 const theGreatGatsby = new Book(
   "The Great Gatsby",
   "F. Scott Fitzgerald",
-  180,
+  "180 pages",
   "not read yet"
 );
 
