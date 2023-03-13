@@ -15,4 +15,10 @@ body {
 .card-holder {
   display: flex;
   gap: 15px;
+  width: 100vw;
+}
+
+.card-book {
+  border: 1px solid black;
+  flex: 1;
 }
