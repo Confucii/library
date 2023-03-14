@@ -1,3 +1,6 @@
+const newBook = document.querySelector(".new-book");
+const formSelector = document.querySelector(".form-book");
+
 const myLibrary = [];
 
 function Book(title, author, volume, status) {
@@ -29,6 +32,15 @@ function displayBooks() {
     bookCardHolder.appendChild(bookCard);
   });
 }
+
+newBook.addEventListener("click", () => {
+  formSelector.classList.toggle("invisible");
+  if (!formSelector.classList.contains("invisible")) {
+    newBook.value = "Cancel";
+  } else {
+    newBook.value = "New Book";
+  }
+});
 
 const hobbit = new Book("Hobbit", "J.R.R. Tolkien", "295 pages", "not read");
 const catcherInTheRye = new Book(

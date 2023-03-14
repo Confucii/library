@@ -37,6 +37,14 @@ body {
   gap: 50px;
 }
 
+.invisible {
+  display: none;
+}
+
+form div * {
+  font-size: 1.2rem;
+}
+
 .new-book {
   align-self: center;
   padding: 5px 10px;

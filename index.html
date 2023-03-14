@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class="card-holder"></div>
-    <form action="./" class="form-book">
+    <form action="./" class="form-book invisible">
       <div>
         <label for="title">Title</label>
         <input type="text" name="title" id="title" placeholder="Book title" />
@@ -28,17 +28,22 @@
 
       <div>
         <label for="volume">Volume</label>
-        <input type="tel" name="volume" id="volume" placeholder="237" />
+        <input
+          type="tel"
+          name="volume"
+          id="volume"
+          placeholder="number of pages"
+        />
       </div>
 
       <div>
         <label for="status">Status</label>
         <select name="status" id="status">
           <option value="true">Read</option>
-          <option value="false">Not read</option>
+          <option value="false" selected>Not read</option>
         </select>
       </div>
     </form>
-    <button type="button" class="new-book">New book</button>
+    <input type="button" class="new-book" value="New Book" />
   </body>
 </html>
