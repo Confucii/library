@@ -1,5 +1,9 @@
 const newBook = document.querySelector(".new-book");
 const formSelector = document.querySelector(".form-book");
+const inputSelector = document.querySelectorAll(
+  'input[type="text"], input[type="tel"]'
+);
+const selectSelector = document.querySelector("select");
 
 const myLibrary = [];
 
@@ -33,13 +37,26 @@ function displayBooks() {
   });
 }
 
+function clearForm() {
+  inputSelector.forEach((input) => {
+    const inputElem = input;
+    inputElem.value = "";
+  });
+  selectSelector.selectedIndex = 0;
+}
+
 newBook.addEventListener("click", () => {
   formSelector.classList.toggle("invisible");
   if (!formSelector.classList.contains("invisible")) {
     newBook.value = "Cancel";
   } else {
     newBook.value = "New Book";
+    clearForm();
   }
+});
+
+formSelector.addEventListener("submit", (e) => {
+  e.preventDefault();
 });
 
 const hobbit = new Book("Hobbit", "J.R.R. Tolkien", "295 pages", "not read");

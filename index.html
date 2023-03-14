@@ -13,7 +13,14 @@
     <form action="./" class="form-book invisible">
       <div>
         <label for="title">Title</label>
-        <input type="text" name="title" id="title" placeholder="Book title" />
+        <input
+          type="text"
+          name="title"
+          id="title"
+          required
+          pattern="^[A-Za-z0-9\s.,_-]+$"
+          placeholder="Book title"
+        />
       </div>
 
       <div>
@@ -22,6 +29,8 @@
           type="text"
           name="author"
           id="author"
+          required
+          pattern="^[A-Za-z\s]+$"
           placeholder="Author name"
         />
       </div>
@@ -32,6 +41,7 @@
           type="tel"
           name="volume"
           id="volume"
+          required
           placeholder="number of pages"
         />
       </div>
@@ -39,10 +49,11 @@
       <div>
         <label for="status">Status</label>
         <select name="status" id="status">
-          <option value="true">Read</option>
           <option value="false" selected>Not read</option>
+          <option value="true">Read</option>
         </select>
       </div>
+      <div><input type="submit" value="Submit" /></div>
     </form>
     <input type="button" class="new-book" value="New Book" />
   </body>

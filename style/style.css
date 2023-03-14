@@ -45,6 +45,10 @@ form div * {
   font-size: 1.2rem;
 }
 
+form div *:not(label) {
+  padding: 3px 5px;
+}
+
 .new-book {
   align-self: center;
   padding: 5px 10px;
