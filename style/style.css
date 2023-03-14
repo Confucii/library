@@ -29,6 +29,22 @@ body {
   border-radius: 10px;
   background-color: white;
   padding: 5px 10px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.del-btn {
+  padding: 3px 5px;
+  font-size: 1.1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.del-btn:hover {
+  color: red;
 }
 
 .form-book {
