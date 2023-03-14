@@ -34,7 +34,8 @@ body {
 }
 
 .del-btn,
-.change-btn {
+.change-btn,
+.sbmt-btn {
   padding: 3px 5px;
   font-size: 1.1rem;
   background-color: black;
@@ -63,6 +64,7 @@ body {
 .form-book {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 50px;
 }
 
@@ -78,6 +80,16 @@ form div *:not(label) {
   padding: 3px 5px;
 }
 
+.sbmt-btn {
+  margin: 0;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+}
+
+.sbmt-btn:hover {
+  color: lightgreen;
+}
+
 .new-book {
   align-self: center;
   padding: 5px 10px;
@@ -86,4 +98,12 @@ form div *:not(label) {
   color: white;
   border: none;
   border-radius: 10px;
+}
+
+.new-book:hover {
+  color: lightblue;
+}
+
+.new-book[value="Cancel"]:hover {
+  color: lightcoral;
 }
