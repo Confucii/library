@@ -20,6 +20,9 @@ function addBookToLibrary(book) {
 
 function displayBooks() {
   const bookCardHolder = document.querySelector(".card-holder");
+  while (bookCardHolder.firstChild) {
+    bookCardHolder.removeChild(bookCardHolder.firstChild);
+  }
   myLibrary.forEach((book) => {
     const bookCard = document.createElement("div");
     bookCard.classList.add("card-book");
@@ -56,7 +59,16 @@ newBook.addEventListener("click", () => {
 });
 
 formSelector.addEventListener("submit", (e) => {
+  const values = [];
   e.preventDefault();
+  inputSelector.forEach((input) => {
+    values.push(input.value);
+  });
+  values.push(selectSelector.options[selectSelector.selectedIndex].textContent);
+  values[2] += " pages";
+  addBookToLibrary(new Book(values[0], values[1], values[2], values[3]));
+  clearForm();
+  displayBooks();
 });
 
 const hobbit = new Book("Hobbit", "J.R.R. Tolkien", "295 pages", "not read");
