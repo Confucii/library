@@ -33,7 +33,8 @@ body {
   text-align: center;
 }
 
-.del-btn {
+.del-btn,
+.change-btn {
   padding: 3px 5px;
   font-size: 1.1rem;
   background-color: black;
@@ -41,6 +42,18 @@ body {
   border: none;
   border-radius: 5px;
   margin-top: 10px;
+}
+
+.change-btn {
+  margin-right: 5px;
+}
+
+.del-btn {
+  margin-left: 5px;
+}
+
+.change-btn:hover {
+  color: yellow;
 }
 
 .del-btn:hover {
