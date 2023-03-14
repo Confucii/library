@@ -20,9 +20,11 @@ function addBookToLibrary(book) {
 
 function displayBooks() {
   const bookCardHolder = document.querySelector(".card-holder");
+
   while (bookCardHolder.firstChild) {
     bookCardHolder.removeChild(bookCardHolder.firstChild);
   }
+
   myLibrary.forEach((book, index) => {
     const bookCard = document.createElement("div");
     bookCard.classList.add("card-book");
@@ -36,6 +38,21 @@ function displayBooks() {
       bookPropertyText.appendChild(propertyContent);
       bookCard.appendChild(bookPropertyText);
     });
+
+    const statusBtn = document.createElement("input");
+    statusBtn.value = "Change status";
+    statusBtn.type = "button";
+    statusBtn.classList.add("change-btn");
+    statusBtn.addEventListener("click", () => {
+      const { status } = myLibrary[index];
+      if (status === "read") {
+        myLibrary[index].status = "not read";
+      } else {
+        myLibrary[index].status = "read";
+      }
+      displayBooks();
+    });
+
     const deleteBtn = document.createElement("input");
     deleteBtn.value = "Delete";
     deleteBtn.type = "button";
@@ -44,6 +61,8 @@ function displayBooks() {
       myLibrary.splice(index, 1);
       displayBooks();
     });
+
+    bookCard.appendChild(statusBtn);
     bookCard.appendChild(deleteBtn);
     bookCardHolder.appendChild(bookCard);
   });
