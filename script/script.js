@@ -23,7 +23,7 @@ function displayBooks() {
   while (bookCardHolder.firstChild) {
     bookCardHolder.removeChild(bookCardHolder.firstChild);
   }
-  myLibrary.forEach((book) => {
+  myLibrary.forEach((book, index) => {
     const bookCard = document.createElement("div");
     bookCard.classList.add("card-book");
     Object.entries(book).forEach(([bookProperty, bookAttribute]) => {
@@ -36,6 +36,15 @@ function displayBooks() {
       bookPropertyText.appendChild(propertyContent);
       bookCard.appendChild(bookPropertyText);
     });
+    const deleteBtn = document.createElement("input");
+    deleteBtn.value = "Delete";
+    deleteBtn.type = "button";
+    deleteBtn.classList.add("del-btn");
+    deleteBtn.addEventListener("click", () => {
+      myLibrary.splice(index, 1);
+      displayBooks();
+    });
+    bookCard.appendChild(deleteBtn);
     bookCardHolder.appendChild(bookCard);
   });
 }
