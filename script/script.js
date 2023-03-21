@@ -7,11 +7,13 @@ const selectSelector = document.querySelector("select");
 
 const myLibrary = [];
 
-function Book(title, author, volume, status) {
-  this.title = title;
-  this.author = author;
-  this.volume = volume;
-  this.status = status;
+class Book {
+  constructor(title, author, volume, status) {
+    this.title = title;
+    this.author = author;
+    this.volume = volume;
+    this.status = status;
+  }
 }
 
 function addBookToLibrary(book) {
