@@ -1,11 +1,40 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  serverTimestamp,
+  limit,
+  orderBy,
+  query,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBVfoOgAoF0KN40GXXVU6BfjKV1zgbcm38",
+  authDomain: "librayr-3da52.firebaseapp.com",
+  projectId: "librayr-3da52",
+  storageBucket: "librayr-3da52.appspot.com",
+  messagingSenderId: "378448502173",
+  appId: "1:378448502173:web:c6626f5d3a9947596b2374",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const booksCol = collection(db, "books");
+
 const newBook = document.querySelector(".new-book");
 const formSelector = document.querySelector(".form-book");
 const inputSelector = document.querySelectorAll(
   'input[type="text"], input[type="tel"]'
 );
 const selectSelector = document.querySelector("select");
-
-const myLibrary = [];
 
 class Book {
   constructor(title, author, volume, status) {
@@ -16,41 +45,71 @@ class Book {
   }
 }
 
-function addBookToLibrary(book) {
-  myLibrary.push(book);
+async function addBookToLibrary(book) {
+  await addDoc(booksCol, {
+    title: book.title,
+    author: book.author,
+    volume: book.volume,
+    status: book.status,
+    timestamp: serverTimestamp(),
+  });
 }
 
-function displayBooks() {
+function displayBook(bookCard, book) {
+  const bookTitle = document.createElement("p");
+  const titleContent = document.createTextNode(`Title: ${book.title}`);
+  bookTitle.appendChild(titleContent);
+
+  const bookAuthor = document.createElement("p");
+  const authorContent = document.createTextNode(`Author: ${book.author}`);
+  bookAuthor.appendChild(authorContent);
+
+  const bookVolume = document.createElement("p");
+  const volumeContent = document.createTextNode(`Volume: ${book.volume}`);
+  bookVolume.appendChild(volumeContent);
+
+  const bookStatus = document.createElement("p");
+  const statusContent = document.createTextNode(`Status: ${book.status}`);
+  bookStatus.appendChild(statusContent);
+
+  bookCard.appendChild(bookTitle);
+  bookCard.appendChild(bookAuthor);
+  bookCard.appendChild(bookVolume);
+  bookCard.appendChild(bookStatus);
+}
+
+async function displayBooks() {
+  const booksQuery = query(booksCol, orderBy("timestamp", "desc"), limit(7));
+  const booksDocs = await getDocs(booksQuery);
+  const books = booksDocs.docs.map((document) => [
+    document.id,
+    document.data(),
+  ]);
   const bookCardHolder = document.querySelector(".card-holder");
 
   while (bookCardHolder.firstChild) {
     bookCardHolder.removeChild(bookCardHolder.firstChild);
   }
 
-  myLibrary.forEach((book, index) => {
+  books.forEach((book) => {
     const bookCard = document.createElement("div");
     bookCard.classList.add("card-book");
-    Object.entries(book).forEach(([bookProperty, bookAttribute]) => {
-      const bookPropertyCapitilized =
-        bookProperty.charAt(0).toUpperCase() + bookProperty.slice(1);
-      const bookPropertyText = document.createElement("p");
-      const propertyContent = document.createTextNode(
-        `${bookPropertyCapitilized}: ${bookAttribute}`
-      );
-      bookPropertyText.appendChild(propertyContent);
-      bookCard.appendChild(bookPropertyText);
-    });
+
+    displayBook(bookCard, book[1]);
 
     const statusBtn = document.createElement("input");
     statusBtn.value = "Change status";
     statusBtn.type = "button";
     statusBtn.classList.add("change-btn");
-    statusBtn.addEventListener("click", () => {
-      const { status } = myLibrary[index];
-      if (status === "read") {
-        myLibrary[index].status = "not read";
+    statusBtn.addEventListener("click", async () => {
+      if (book[1].status === "read") {
+        await updateDoc(doc(db, "books", book[0]), {
+          status: "not read",
+        });
       } else {
-        myLibrary[index].status = "read";
+        await updateDoc(doc(db, "books", book[0]), {
+          status: "read",
+        });
       }
       displayBooks();
     });
@@ -59,8 +118,8 @@ function displayBooks() {
     deleteBtn.value = "Delete";
     deleteBtn.type = "button";
     deleteBtn.classList.add("del-btn");
-    deleteBtn.addEventListener("click", () => {
-      myLibrary.splice(index, 1);
+    deleteBtn.addEventListener("click", async () => {
+      await deleteDoc(doc(db, "books", book[0]));
       displayBooks();
     });
 
@@ -100,44 +159,5 @@ formSelector.addEventListener("submit", (e) => {
   clearForm();
   displayBooks();
 });
-
-const hobbit = new Book("Hobbit", "J.R.R. Tolkien", "295 pages", "not read");
-const catcherInTheRye = new Book(
-  "The Catcher in the Rye",
-  "J.D. Salinger",
-  "277 pages",
-  "not read"
-);
-const toKillAMockingbird = new Book(
-  "To Kill a Mockingbird",
-  "Harper Lee",
-  "281 pages",
-  "not read"
-);
-const nineteenEightyFour = new Book(
-  "1984",
-  "George Orwell",
-  "328 pages",
-  "not read"
-);
-const prideAndPrejudice = new Book(
-  "Pride and Prejudice",
-  "Jane Austen",
-  "279 pages",
-  "not read"
-);
-const theGreatGatsby = new Book(
-  "The Great Gatsby",
-  "F. Scott Fitzgerald",
-  "180 pages",
-  "not read"
-);
-
-addBookToLibrary(hobbit);
-addBookToLibrary(catcherInTheRye);
-addBookToLibrary(toKillAMockingbird);
-addBookToLibrary(nineteenEightyFour);
-addBookToLibrary(prideAndPrejudice);
-addBookToLibrary(theGreatGatsby);
 
 displayBooks();

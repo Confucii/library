@@ -1,6 +1,6 @@
 # Library
 
-Odin project library. The purpose of this project is to study the concepts of objects and their usage in web-pages. This is done by creating a simple library that can be manipulated through page via client-side JS.
+Odin project library. The purpose of this project is to study the concepts of objects and their usage in web-pages. This is done by creating a simple library that can be manipulated through page via client-side JS. UPD (29.05.23): Added Firestore as an experiment to add data saving across sessions.
 
 ## [Live Demo](https://confucii.github.io/library/)
 
